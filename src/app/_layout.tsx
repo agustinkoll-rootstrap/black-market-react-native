@@ -15,6 +15,7 @@ import interceptors from '@/api/common/interceptors';
 import { AuthProvider } from '@/components/providers/auth';
 import { hydrateAuth, loadSelectedTheme } from '@/core';
 import { useThemeConfig } from '@/core/use-theme-config';
+import { darkViolet, white } from '@/ui/colors';
 import { HeaderLogo } from '@/ui/icons';
 
 export { ErrorBoundary } from 'expo-router';
@@ -34,9 +35,9 @@ export default function RootLayout() {
     <Providers>
       
       <Stack screenOptions={{
-          headerStyle: { backgroundColor: '#1C1B1F' },
-          headerTintColor: '#fff', 
-           headerTitleAlign: 'center',
+          headerStyle: { backgroundColor: darkViolet },
+          headerTintColor: white, 
+          headerTitleAlign: 'center',
           headerTitle: () => <HeaderLogo />,
         }}>
         <Stack.Screen name="(app)" options={{ headerShown: true }} />
