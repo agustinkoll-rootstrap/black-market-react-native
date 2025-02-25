@@ -8,8 +8,8 @@ import { View } from '@/ui';
 import {
   DashboardIcon,
   Fav as FavIcon,
-  HamburguerMenu,
   Products as ProductsIcon,
+  Settings as SettingsIcon,
   Shopping as ShoppingCartIcon,
 } from '@/ui/icons';
 
@@ -77,7 +77,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, focused }) => (<TabIcon IconComponent={HamburguerMenu} color={color} focused={focused} />),
+          tabBarIcon: ({ color, focused }) => (<TabIcon IconComponent={SettingsIcon} color={color} focused={focused} />),
           tabBarTestID: 'settings-tab',
         }}
       />
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 20,
   },
-  // A gray circle behind the focused icon
   focusedIcon: {
     backgroundColor: '#E0E0E0', 
   },
