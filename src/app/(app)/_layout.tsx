@@ -5,10 +5,13 @@ import { useAuth } from '@/components/providers/auth';
 import { useIsFirstTime } from '@/core';
 import { Pressable, Text } from '@/ui';
 import {
-  Feed as FeedIcon,
-  Settings as SettingsIcon,
-  Style as StyleIcon,
+  DashboardIcon,
+  Fav as FavIcon,
+  Products as ProductsIcon,
+  Shopping as ShoppingCartIcon,
 } from '@/ui/icons';
+
+import Dashboard from './dashboard';
 
 export default function TabLayout() {
   const { isAuthenticated, ready } = useAuth();
@@ -31,29 +34,37 @@ export default function TabLayout() {
   }
   return (
     <Tabs>
-      <Tabs.Screen
-        name="index"
+     <Tabs.Screen
+        name="dashboard"
         options={{
-          title: 'Feed',
-          tabBarIcon: ({ color }) => <FeedIcon color={color} />,
-          headerRight: () => <CreateNewPostLink />,
-          tabBarTestID: 'feed-tab',
+          title: '',
+          tabBarIcon: ({ color }) => <DashboardIcon color={color} />,
+          headerRight: () => <Dashboard />,
+          tabBarTestID: 'dashboard-tab',
         }}
       />
       <Tabs.Screen
-        name="style"
+        name="products-list"
         options={{
-          title: 'Style',
-          tabBarIcon: ({ color }) => <StyleIcon color={color} />,
-          tabBarTestID: 'style-tab',
+          title: 'Products',
+          tabBarIcon: ({ color }) => <ProductsIcon color={color} />,
+          tabBarTestID: 'products-list-tab',
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="shopping-cart"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
-          tabBarTestID: 'settings-tab',
+          title: 'My shopping cart',
+          tabBarIcon: ({ color }) => <ShoppingCartIcon color={color} />,
+          tabBarTestID: 'shopping-cart-tab',
+        }}
+      />
+      <Tabs.Screen
+        name="fav"
+        options={{
+          title: 'My Favourites',
+          tabBarIcon: ({ color }) => <FavIcon color={color} />,
+          tabBarTestID: 'favourites-tab',
         }}
       />
     </Tabs>
