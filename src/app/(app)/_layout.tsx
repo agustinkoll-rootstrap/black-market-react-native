@@ -35,10 +35,11 @@ export default function TabLayout() {
     return <Redirect href="/sign-in" />;
   }
   return (
-    <Tabs screenOptions={{ headerShown: false,
+     <Tabs screenOptions={{ 
+      headerShown: false,
       tabBarShowLabel: false,
       tabBarStyle:{backgroundColor: '#000'},
-       tabBarActiveTintColor: '#00031A',
+      tabBarActiveTintColor: '#00031A',
       tabBarInactiveTintColor: '#fff', }}>
      <Tabs.Screen
         name="dashboard"
