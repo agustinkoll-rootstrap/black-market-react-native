@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { useAuth } from '@/components/providers/auth';
 import { useIsFirstTime } from '@/core';
 import { View } from '@/ui';
+import { black, darkViolet, lightGray, white } from '@/ui/colors';
 import {
   DashboardIcon,
   Fav as FavIcon,
@@ -38,9 +39,9 @@ export default function TabLayout() {
      <Tabs screenOptions={{ 
       headerShown: false,
       tabBarShowLabel: false,
-      tabBarStyle:{backgroundColor: '#000'},
-      tabBarActiveTintColor: '#00031A',
-      tabBarInactiveTintColor: '#fff', }}>
+      tabBarStyle:{backgroundColor: black},
+      tabBarActiveTintColor: darkViolet,
+      tabBarInactiveTintColor: white, }}>
      <Tabs.Screen
         name="dashboard"
         options={{
@@ -106,6 +107,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   focusedIcon: {
-    backgroundColor: '#E0E0E0', 
+    backgroundColor: lightGray, 
   },
 });
