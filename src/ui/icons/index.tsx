@@ -4,6 +4,7 @@ export * from './dashboard';
 export * from './fav';
 export * from './feed';
 export * from './github';
+export * from './hamburguer-menu';
 export * from './home';
 export * from './language';
 export * from './products';

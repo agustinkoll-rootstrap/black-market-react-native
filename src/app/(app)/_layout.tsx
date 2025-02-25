@@ -7,6 +7,7 @@ import { Pressable, Text } from '@/ui';
 import {
   DashboardIcon,
   Fav as FavIcon,
+  HamburguerMenu,
   Products as ProductsIcon,
   Shopping as ShoppingCartIcon,
 } from '@/ui/icons';
@@ -37,7 +38,7 @@ export default function TabLayout() {
      <Tabs.Screen
         name="dashboard"
         options={{
-          title: '',
+          title: 'Dashboard',
           tabBarIcon: ({ color }) => <DashboardIcon color={color} />,
           headerRight: () => <Dashboard />,
           tabBarTestID: 'dashboard-tab',
@@ -65,6 +66,14 @@ export default function TabLayout() {
           title: 'My Favourites',
           tabBarIcon: ({ color }) => <FavIcon color={color} />,
           tabBarTestID: 'favourites-tab',
+        }}
+      />
+          <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <HamburguerMenu color={color} />,
+          tabBarTestID: 'settings-tab',
         }}
       />
     </Tabs>
