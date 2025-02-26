@@ -12,6 +12,7 @@ interface PasswordInputProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
   rules?: object;
+  testID?: string;
 }
 
 export function PasswordInput<T extends FieldValues>({
@@ -19,6 +20,7 @@ export function PasswordInput<T extends FieldValues>({
   name,
   label,
   rules,
+  testID,
 }: PasswordInputProps<T>) {
  
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -28,7 +30,7 @@ export function PasswordInput<T extends FieldValues>({
     <View
       style={{
         display: 'flex',
-       
+       width: '100%',
       }}>
       <Text className= 'text-grey-100 text-lg dark:text-neutral-100'>
           {label}
@@ -40,15 +42,21 @@ export function PasswordInput<T extends FieldValues>({
           value={(field.value as string) || ''}
           className="pl-2"
             style={{
-              height: 44,
-              width: '100%',
+              height: 40,
+              width: 320,
+              flex: 1,
+              alignSelf: 'center',
             }}
+            
+            numberOfLines={1}
+            multiline={false}
+            testID={testID}
             placeholder="*****"
             secureTextEntry={!isPasswordVisible}/>
     
         <TouchableOpacity
               onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-              style={ {height: 44, width: 44, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-end'} }>
+              style={ {height: 40, width: 40,  justifyContent: 'center',  alignItems:'center', alignSelf: 'flex-end'} }>
               {isPasswordVisible ? <EyeOff color="black"  /> : <Eye color="black" />}
             </TouchableOpacity>
       </View>
@@ -59,11 +67,10 @@ export function PasswordInput<T extends FieldValues>({
 
 const passwordStyles = StyleSheet.create({
   container: {
-    display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     borderColor: 'black',
-    alignItems: 'center',
     borderWidth: 1,
     borderRadius: 6,
   },

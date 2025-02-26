@@ -47,7 +47,7 @@ export const LoginForm = ({
       behavior="padding"
       keyboardVerticalOffset={10}
     >
-      <View className=" flex-1 content-center items-center justify-center gap-8 p-4">
+      <View className="flex-1 content-center items-center justify-center gap-8 p-4">
         <HeaderLogo color={black}/>
         <View className="column w-full gap-4">
           <ControlledInput
