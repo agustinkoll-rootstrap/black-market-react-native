@@ -5,7 +5,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
 import { SplashScreen, Stack, } from 'expo-router';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {  StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
@@ -17,7 +17,6 @@ import { hydrateAuth, loadSelectedTheme } from '@/core';
 import { useThemeConfig } from '@/core/use-theme-config';
 import { darkViolet, white } from '@/ui/colors';
 import { HeaderLogo } from '@/ui/icons';
-
 export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {

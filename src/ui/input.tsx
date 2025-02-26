@@ -134,7 +134,7 @@ export function ControlledInput<T extends FieldValues>(
     <View className='w-full'>
       <Input
         {...inputProps}
-        className="rounded-md border border-black p-4 pr-12" 
+        className="rounded-md border border-black p-2 pr-12" 
         style={{height: 44,}}
         ref={field.ref}
         autoCapitalize="none"

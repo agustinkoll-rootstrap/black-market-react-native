@@ -30,7 +30,7 @@ export function PasswordInput<T extends FieldValues>({
         display: 'flex',
        
       }}>
-      <Text className= 'text-grey-100 mb-1 text-lg dark:text-neutral-100'>
+      <Text className= 'text-grey-100 text-lg dark:text-neutral-100'>
           {label}
       </Text>
 
@@ -38,13 +38,12 @@ export function PasswordInput<T extends FieldValues>({
         <Input
           onChangeText={field.onChange}
           value={(field.value as string) || ''}
-          className="pl-4 pr-8"
+          className="pl-2"
             style={{
               height: 44,
-              flex: 1,
-              
+              width: '100%',
             }}
-            placeholder="********"
+            placeholder="*****"
             secureTextEntry={!isPasswordVisible}/>
     
         <TouchableOpacity

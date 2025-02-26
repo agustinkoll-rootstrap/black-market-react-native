@@ -12,7 +12,7 @@ export default function Login() {
 
   const { mutate: login, isPending } = useLogin({
     onSuccess: () => {
-      router.push('/');
+      router.replace('/(app)/dashboard');
     },
     onError: (error) => showMessage({ message: error.message, type: 'danger' }),
   });
