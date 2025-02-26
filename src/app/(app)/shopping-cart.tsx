@@ -1,3 +1,4 @@
+import React from 'react';
 import { SafeAreaView,ScrollView, Text,View } from 'react-native';
 
 import { FocusAwareStatusBar } from '@/ui';

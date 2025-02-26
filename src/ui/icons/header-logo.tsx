@@ -1,3 +1,4 @@
+import React from 'react';
 import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
 
@@ -9,13 +10,13 @@ export function HeaderLogo({ color = '#fff', ...props }: SvgProps) {
         fill={color}
     />
       <Path
-        fill="#fff"
+        fill={color}
         fillRule="evenodd"
         d="M11.684 10a6.113 6.113 0 0 0-4.415-1.877H.793v3.754h6.476c1.734 0 3.3-.72 4.415-1.877Z"
         clipRule="evenodd"
     />
       <Path
-        fill="#fff"
+        fill={color}
         d="M8.476.617H.793V4.37H7.88c3.725 0 4.976 2.994 5.154 4.11a5.233 5.233 0 0 0 .708-2.596A5.267 5.267 0 0 0 8.476.617ZM8.476 19.383H.793V15.63H7.88c3.725 0 4.976-2.994 5.154-4.11.438.764.708 1.652.708 2.596a5.267 5.267 0 0 1-5.267 5.267Z"
     />
     </Svg>

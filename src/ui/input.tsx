@@ -1,3 +1,4 @@
+
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import type {
   Control,
@@ -130,13 +131,19 @@ export function ControlledInput<T extends FieldValues>(
 
   const { field, fieldState } = useController({ control, name, rules });
   return (
-    <Input
-      ref={field.ref}
-      autoCapitalize="none"
-      onChangeText={field.onChange}
-      value={(field.value as string) || ''}
-      {...inputProps}
-      error={fieldState.error?.message}
-    />
+    <View className='w-full'>
+      <Input
+        {...inputProps}
+        className="rounded-md border border-black p-4 pr-12" 
+        style={{height: 44,}}
+        ref={field.ref}
+        autoCapitalize="none"
+        onChangeText={field.onChange}
+        value={(field.value as string) || ''}
+        {...inputProps}
+        error={fieldState.error?.message}
+      />
+    </View>
   );
 }
+
