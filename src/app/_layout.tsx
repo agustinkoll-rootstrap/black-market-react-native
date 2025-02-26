@@ -3,7 +3,7 @@ import '../../global.css';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
-import { SplashScreen, Stack } from 'expo-router';
+import { SplashScreen, Stack, } from 'expo-router';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
@@ -15,6 +15,8 @@ import interceptors from '@/api/common/interceptors';
 import { AuthProvider } from '@/components/providers/auth';
 import { hydrateAuth, loadSelectedTheme } from '@/core';
 import { useThemeConfig } from '@/core/use-theme-config';
+import { darkViolet, white } from '@/ui/colors';
+import { HeaderLogo } from '@/ui/icons';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -31,9 +33,15 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   return (
     <Providers>
-      <Stack>
-        <Stack.Screen name="(app)" options={{ headerShown: false }} />
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+      
+      <Stack screenOptions={{
+          headerStyle: { backgroundColor: darkViolet },
+          headerTintColor: white, 
+          headerTitleAlign: 'center',
+          headerTitle: () => <HeaderLogo />,
+        }}>
+        <Stack.Screen name="(app)" options={{ headerShown: true }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false, }} />
         <Stack.Screen name="forgot-password" />
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen
