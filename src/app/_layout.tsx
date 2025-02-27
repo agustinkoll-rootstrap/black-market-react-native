@@ -39,9 +39,9 @@ export default function RootLayout() {
           headerTitleAlign: 'center',
           headerTitle: () => <HeaderLogo />,
         }}>
-        <Stack.Screen name="(app)" options={{ headerShown: true }} />
+        <Stack.Screen name="(app)" options={{ headerShown: true, headerBackTitleVisible: false }}/>
         <Stack.Screen name="onboarding" options={{ headerShown: false, }} />
-        <Stack.Screen name="forgot-password" />
+        <Stack.Screen name="forgot-password" options={{ headerBackTitleVisible: false }}/>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen
           name="sign-up"

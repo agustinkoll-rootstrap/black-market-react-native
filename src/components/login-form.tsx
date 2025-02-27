@@ -38,9 +38,18 @@ export const LoginForm = ({
   onSubmit = () => {},
   isLoading = false,
 }: LoginFormProps) => {
-  const { handleSubmit, control } = useForm<FormType>({
-    resolver: zodResolver(schema),
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+    watch,
+  } = useForm<FormType>({
+      resolver: zodResolver(schema),
+      mode: 'onChange', 
   });
+  const { email, password } = watch();
+  const isFormIncomplete = !email || !password;
+
   return (
     <KeyboardAvoidingView
       className="flex-1"
@@ -68,6 +77,7 @@ export const LoginForm = ({
             label={translate('auth.signIn.buttons.login')}
             onPress={handleSubmit(onSubmit)}
             loading={isLoading}
+            disabled={isFormIncomplete || !isValid}
           />
           <Text>
             {translate('auth.signIn.newAccount')}{' '}
