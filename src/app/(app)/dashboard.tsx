@@ -1,15 +1,26 @@
-import { SafeAreaView,ScrollView, Text,View } from 'react-native';
+import { router } from 'expo-router';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
+import {ProductsPreview} from '@/app/dashboard/products-preview';
+import { translate } from '@/core';
 import { FocusAwareStatusBar } from '@/ui';
+import { background, blueLink } from '@/ui/colors';
 
 export default function Dashboard() {
   return (
     <>
       <FocusAwareStatusBar />
-      <ScrollView className="px-4">
+      <ScrollView style={{ backgroundColor: background }}>
         <SafeAreaView className="flex-1">
           <View>
-          <Text>Dashboard</Text>
+            <ProductsPreview />
+            <View className="flex-1" style={{ marginTop:8, alignItems:'center' }} >
+              <TouchableOpacity onPress={() => router.push("/products-list")} >
+                <Text className="font-bold" style={{ color: blueLink, fontSize: 16 }} >
+                  {translate("dashboard.seeAll")}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </SafeAreaView>
       </ScrollView>

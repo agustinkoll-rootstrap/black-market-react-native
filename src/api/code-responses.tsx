@@ -1,0 +1,1 @@
+export const RESPONSE_SUCCESS = 200
