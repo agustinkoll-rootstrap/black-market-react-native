@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query"; // Ensure correct import
+import { HttpStatusCode } from "axios";
 import { createQuery } from 'react-query-kit';
 
-import { RESPONSE_SUCCESS } from '../code-responses';
 import { client } from '../common';
 
 export type Product = {
@@ -32,7 +32,7 @@ async function addToFavorites(productId: number) : Promise<Product> {
         'Content-Type': 'application/json',
       },
     });
-    if (result.status !== RESPONSE_SUCCESS) {
+    if (result.status !== HttpStatusCode.Ok) {
       throw new Error(`HTTP error! Status: ${result}`);
     }
     return result.data;
@@ -51,7 +51,7 @@ const getProducts = async (): Promise<Product[]> => {
     method: 'GET',
   });
 
-  if (status !== RESPONSE_SUCCESS) {
+  if (status !== HttpStatusCode.Ok) {
     throw new Error(`HTTP error! Status: ${status}`);
   }
 

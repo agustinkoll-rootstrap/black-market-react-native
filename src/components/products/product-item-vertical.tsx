@@ -25,7 +25,7 @@ export function ProductItemVertical({ product }: { product: Product }) {
   };
 
   return (
-    <View key={product.id} style={styles.cardContainer}  className="m-r-4">
+    <View style={styles.cardContainer} className="m-r-4">
     <Image source={{ uri: product.pictures[0] }} style={styles.image} />
     <View style={{ height: 1, width:'100%', backgroundColor:black }} />
     
