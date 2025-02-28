@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'expo-router';
+import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
@@ -7,6 +8,10 @@ import z from 'zod';
 
 import { translate } from '@/core';
 import { Button, ControlledInput, Text, View } from '@/ui';
+import { black } from '@/ui/colors';
+import { HeaderLogo } from '@/ui/icons';
+import { PasswordInput } from '@/ui/password-input';
+
 
 const MIN_CHARS = 6;
 const schema = z.object({
@@ -33,20 +38,27 @@ export const LoginForm = ({
   onSubmit = () => {},
   isLoading = false,
 }: LoginFormProps) => {
-  const { handleSubmit, control } = useForm<FormType>({
-    resolver: zodResolver(schema),
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+    watch,
+  } = useForm<FormType>({
+      resolver: zodResolver(schema),
+      mode: 'onChange', 
   });
+  const { email, password } = watch();
+  const isFormIncomplete = !email || !password;
+
   return (
     <KeyboardAvoidingView
       className="flex-1"
       behavior="padding"
       keyboardVerticalOffset={10}
     >
-      <View className="flex-1 justify-center gap-8 p-4">
-        <Text testID="form-title" className="text-center text-2xl">
-          {translate('auth.signIn.title')}
-        </Text>
-        <View>
+      <View className="flex-1 content-center items-center justify-center gap-8 p-4">
+        <HeaderLogo color={black}/>
+        <View className="column w-full gap-4">
           <ControlledInput
             testID="email-input"
             autoCapitalize="none"
@@ -55,20 +67,17 @@ export const LoginForm = ({
             name="email"
             label={translate('auth.signIn.fields.email')}
           />
-          <ControlledInput
-            testID="password-input"
-            control={control}
-            name="password"
+          <PasswordInput
             label={translate('auth.signIn.fields.password')}
-            placeholder="***"
-            secureTextEntry={true}
+            name="password"
+            control={control}
           />
-
           <Button
             testID="login-button"
             label={translate('auth.signIn.buttons.login')}
             onPress={handleSubmit(onSubmit)}
             loading={isLoading}
+            disabled={isFormIncomplete || !isValid}
           />
           <Text>
             {translate('auth.signIn.newAccount')}{' '}

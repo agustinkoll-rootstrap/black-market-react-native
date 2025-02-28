@@ -12,7 +12,7 @@ export default function SignIn() {
 
   const { mutate: signUp, isPending } = useSignUp({
     onSuccess: () => {
-      router.push('/');
+      router.replace('/(app)/dashboard');
     },
     onError: (error) => showMessage({ message: error.message, type: 'danger' }),
   });

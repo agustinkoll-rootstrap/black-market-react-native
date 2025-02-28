@@ -5,7 +5,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import { FlashList } from '@shopify/flash-list';
 import { useColorScheme } from 'nativewind';
-import { forwardRef, memo, useCallback, useMemo } from 'react';
+import React, { forwardRef, memo, useCallback, useMemo } from 'react';
 import type { FieldValues } from 'react-hook-form';
 import { useController } from 'react-hook-form';
 import { Platform, Pressable, type PressableProps, View } from 'react-native';

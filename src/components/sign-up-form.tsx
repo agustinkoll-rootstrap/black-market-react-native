@@ -4,7 +4,10 @@ import { KeyboardAvoidingView } from 'react-native';
 import z from 'zod';
 
 import { translate } from '@/core';
-import { Button, ControlledInput, Text, View } from '@/ui';
+import { Button, ControlledInput, View } from '@/ui';
+import { black } from '@/ui/colors';
+import { HeaderLogo } from '@/ui/icons';
+import { PasswordInput } from '@/ui/password-input';
 
 const MIN_PASSWORD_LENGTH = 6;
 
@@ -43,9 +46,19 @@ export const SignUpForm = ({
   onSubmit = () => {},
   isPending = false,
 }: SignUpFormProps) => {
-  const { handleSubmit, control } = useForm<FormType>({
+  
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+    watch,
+  } = useForm<FormType>({
     resolver: zodResolver(schema),
+    mode: 'onChange', // Ensures validation runs on every change
   });
+
+  const { email, name, password, passwordConfirmation } = watch();
+  const isFormIncomplete = !email || !name || !password || !passwordConfirmation;
 
   return (
     <KeyboardAvoidingView
@@ -54,9 +67,7 @@ export const SignUpForm = ({
       keyboardVerticalOffset={10}
     >
       <View className="flex-1 justify-center gap-4 p-4">
-        <Text testID="form-title" className="text-center text-2xl">
-          {translate('auth.signUp.title')}
-        </Text>
+        <HeaderLogo color={black} style={{alignSelf: 'center'}}/>
         <View>
           <ControlledInput
             testID="email-input"
@@ -72,29 +83,24 @@ export const SignUpForm = ({
             name="name"
             label={translate('auth.signUp.fields.name')}
           />
-          <ControlledInput
+          <PasswordInput
             testID="password-input"
             control={control}
             name="password"
             label={translate('auth.signUp.fields.password')}
-            placeholder="***"
-            secureTextEntry={true}
           />
-          <ControlledInput
+          <PasswordInput
             testID="password-confirmation-input"
             control={control}
             name="passwordConfirmation"
             label={translate('auth.signUp.fields.password')}
-            placeholder="***"
-            secureTextEntry={true}
           />
-
           <Button
             testID="sign-up-button"
             label={translate('auth.signUp.signUpButton')}
             onPress={handleSubmit(onSubmit)}
             loading={isPending}
-            disabled={isPending}
+            disabled={isPending || isFormIncomplete || !isValid}
           />
         </View>
       </View>

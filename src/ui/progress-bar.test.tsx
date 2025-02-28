@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react-native';
-import { createRef } from 'react';
+import React, { createRef } from 'react';
 import { getAnimatedStyle } from 'react-native-reanimated';
 
 import type { ProgressBarRef } from './progress-bar';
