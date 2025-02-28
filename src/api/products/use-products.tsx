@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query"; // Ensure correct import
 import { createQuery } from 'react-query-kit';
 
 import { RESPONSE_SUCCESS } from '../code-responses';
@@ -21,6 +22,28 @@ export type Category = {
   name: string;
   description: string;
 };
+
+async function addToFavorites(productId: number) : Promise<Product> {
+  try{
+    const result = await client({
+      url: `/v1/products/${productId}/favorite`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (result.status !== RESPONSE_SUCCESS) {
+      throw new Error(`HTTP error! Status: ${result}`);
+    }
+    return result.data;
+  } catch(e){
+    throw new Error(`HTTP error! Status: ${e}`);
+  }
+}
+
+export const useAddFav = () => useMutation<Product, Error, number>({
+    mutationFn: addToFavorites,
+  });
 
 const getProducts = async (): Promise<Product[]> => {
   const { data, status } = await client({

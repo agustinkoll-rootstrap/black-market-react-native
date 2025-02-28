@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Image, StyleSheet, Text,TouchableOpacity,View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { type Product } from "@/api/products/use-products";
+import { type Product,useAddFav } from "@/api/products/use-products";
 import { black } from "@/ui/colors";
 const MAX_TEXT_LENGTH = 12;
 
@@ -15,9 +15,11 @@ function truncateText (text: string, maxLength: number): string {
 
 export function ProductItem({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState<boolean>(product.is_favorite);
-  
+  const { mutate: addToFavorites } = useAddFav();
+
   const toggleFavorite = () => {
     setIsFavorite((prev) => !prev);
+    addToFavorites(product.id);
   };
 
   return (
@@ -33,7 +35,7 @@ export function ProductItem({ product }: { product: Product }) {
 
       <View style={styles.descriptionRow}>
         <Text style={styles.text}> {truncateText(product.title, MAX_TEXT_LENGTH)}</Text>
-        <TouchableOpacity onPress={toggleFavorite}>
+        <TouchableOpacity onPress= {toggleFavorite} >
             <Ionicons
               name={isFavorite ? "heart" : "heart-outline"} // Filled if favorite, outline otherwise
               size={20}
