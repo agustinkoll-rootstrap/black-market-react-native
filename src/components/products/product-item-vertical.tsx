@@ -4,6 +4,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { type Product,useAddFav } from "@/api/products/use-products";
 import { black } from "@/ui/colors";
+
+import { ProductState } from "./product-state";
 const MAX_TEXT_LENGTH = 12;
 
 function truncateText (text: string, maxLength: number): string { 
@@ -13,7 +15,7 @@ function truncateText (text: string, maxLength: number): string {
   return result;
 }
 
-export function ProductItem({ product }: { product: Product }) {
+export function ProductItemVertical({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState<boolean>(product.is_favorite);
   const { mutate: addToFavorites } = useAddFav();
 
@@ -45,17 +47,6 @@ export function ProductItem({ product }: { product: Product }) {
       </View>
     </View>
   </View>
-  );
-}
-
-function ProductState({ state }: { state: string }) {
-  return (
-   state==='totaly_new'? 
-   <View style={styles.stateContainerBlue}>
-      <Text style={styles.stateBlueText}>New</Text>
-    </View> : <View style={styles.stateContainerGreen}>
-        <Text style={styles.stateGreenText}>Restored</Text>
-    </View>
   );
 }
 
@@ -97,32 +88,4 @@ export const styles = StyleSheet.create({
     flex:1,
   },
   image:{ width: '100%', height: 150, borderRadius:8, },
-  stateBlueText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-  },
-  stateGreenText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-    paddingVertical: 6,
-    paddingHorizontal: 12,  
-  },
-  stateContainerBlue: {
-    display: 'flex',
-    backgroundColor: 'blue',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stateContainerGreen: { 
-    display: 'flex',
-    backgroundColor: 'green',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
