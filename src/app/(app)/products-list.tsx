@@ -17,6 +17,7 @@ export default function ProductsList() {
         <FlatList
           style={{ borderRadius: 8, borderWidth: 1 }}
           showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           nestedScrollEnabled={false}
           data={productsData}
           keyExtractor={(item) => item.id.toString()}
@@ -31,6 +32,8 @@ export const styles = StyleSheet.create({
   listContainer: {
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: 8,
+    borderWidth: 1,
   },
   backgroundContainer: {
     backgroundColor: background,
