@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   type LineItem,
@@ -35,6 +36,8 @@ export function ProductCartItem({
       },
     });
   };
+
+  const addOneElement = (): void => {};
 
   return (
     <View style={styles.itemsSeparator}>
@@ -68,6 +71,25 @@ export function ProductCartItem({
             <Text style={[styles.text, { paddingBottom: 16 }]}>
               {shoppingCartItem.product.unit_price}
             </Text>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <TouchableOpacity onPress={() => removeFromCart()}>
+                <Ionicons name={'trash'} size={25} color={black} />
+              </TouchableOpacity>
+              <Text style={{ fontSize: 18 }}>
+                {' '}
+                {shoppingCartItem.quantity}{' '}
+              </Text>
+              <TouchableOpacity onPress={() => addOneElement()}>
+                <Ionicons name={'add'} size={25} color={black} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

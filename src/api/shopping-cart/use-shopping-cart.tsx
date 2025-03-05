@@ -52,9 +52,14 @@ async function addToCart(productId: number): Promise<ShoppingCartItem> {
       },
     });
 
-    if (result.status !== HttpStatusCode.Ok) {
+    if (
+      result.status !== HttpStatusCode.Ok &&
+      result.status !== HttpStatusCode.Created
+    ) {
       throw new Error(`HTTP error! Status: ${result}`);
     }
+
+    queryClient.invalidateQueries({ queryKey: ['getShoppingList'] }); // Refresh cart
 
     return result.data;
   } catch (e) {
