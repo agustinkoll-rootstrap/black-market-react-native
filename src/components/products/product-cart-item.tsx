@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
 
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -12,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   type LineItem,
+  useAddQuantityToCart,
   useRemoveFromCart,
 } from '@/api/shopping-cart/use-shopping-cart';
 import { translate } from '@/core';
@@ -25,6 +27,8 @@ export function ProductCartItem({
   shoppingCartItem: LineItem;
 }) {
   const { mutate: removeFromCartMutation } = useRemoveFromCart();
+  const { mutate: addQuantityToCartMutation } = useAddQuantityToCart();
+  const [quantity, setQuantity] = useState<number>(shoppingCartItem.quantity);
 
   const removeFromCart = (): void => {
     removeFromCartMutation(shoppingCartItem.id, {
@@ -37,7 +41,32 @@ export function ProductCartItem({
     });
   };
 
-  const addOneElement = (): void => {};
+  useEffect(() => {
+    if (shoppingCartItem.quantity < quantity) {
+      addOneElement();
+    }
+  }, [quantity]);
+
+  const onIncrementTapped = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const addOneElement = (): void => {
+    addQuantityToCartMutation(
+      { lineItemId: shoppingCartItem.id, newQuantity: quantity },
+      {
+        onSuccess: () => {
+          Alert.alert('Success', 'Incremented quantity');
+        },
+        onError: (error) => {
+          Alert.alert(
+            'Error',
+            error?.message || 'Failed to increment quantity in cart.',
+          );
+        },
+      },
+    );
+  };
 
   return (
     <View style={styles.itemsSeparator}>
@@ -82,11 +111,8 @@ export function ProductCartItem({
               <TouchableOpacity onPress={() => removeFromCart()}>
                 <Ionicons name={'trash'} size={25} color={black} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 18 }}>
-                {' '}
-                {shoppingCartItem.quantity}{' '}
-              </Text>
-              <TouchableOpacity onPress={() => addOneElement()}>
+              <Text style={{ fontSize: 18 }}> {quantity} </Text>
+              <TouchableOpacity onPress={() => onIncrementTapped()}>
                 <Ionicons name={'add'} size={25} color={black} />
               </TouchableOpacity>
             </View>

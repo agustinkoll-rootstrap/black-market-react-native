@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { HttpStatusCode } from 'axios';
 import { createMutation, createQuery } from 'react-query-kit';
 
@@ -67,6 +68,37 @@ async function addToCart(productId: number): Promise<ShoppingCartItem> {
   }
 }
 
+async function addQuantityToCart(
+  lineItemId: number,
+  newQuantity: number,
+): Promise<LineItem> {
+  try {
+    const result = await client({
+      url: `/v1/shopping_cart/line_items/${lineItemId}`,
+      method: 'PATCH',
+      data: {
+        line_item: {
+          quantity: newQuantity,
+        },
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (
+      result.status !== HttpStatusCode.Ok &&
+      result.status !== HttpStatusCode.Created
+    ) {
+      throw new Error(`HTTP error! Status: ${result}`);
+    }
+
+    return result.data;
+  } catch (e) {
+    throw new Error(`HTTP error! Status: ${e}`);
+  }
+}
+
 async function removeFromCart(lineItemId: number): Promise<boolean> {
   try {
     const result = await client({
@@ -119,3 +151,24 @@ export const useShoppingCart = createQuery<ShoppingCart>({
   queryKey: ['getShoppingList'],
   fetcher: getShoppingList,
 });
+
+/*export const useAddQuantityToCart = createMutation<LineItem, number, number>({
+  mutationFn: ({ lineItemId, newQuantity }: { lineItemId: number; newQuantity: number }) => 
+    addQuantityToCart(lineItemId, newQuantity),
+});
+*/
+
+export const useAddQuantityToCart = () =>
+  useMutation({
+    mutationFn: ({
+      lineItemId,
+      newQuantity,
+    }: {
+      lineItemId: number;
+      newQuantity: number;
+    }) => addQuantityToCart(lineItemId, newQuantity),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getShoppingList'] }); // Refresh cart
+    },
+  });
