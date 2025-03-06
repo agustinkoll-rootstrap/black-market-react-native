@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 
-import { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -13,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   type LineItem,
-  useAddQuantityToCart,
+  useModifyQuantityToCart,
   useRemoveFromCart,
 } from '@/api/shopping-cart/use-shopping-cart';
 import { translate } from '@/core';
@@ -27,8 +26,7 @@ export function ProductCartItem({
   shoppingCartItem: LineItem;
 }) {
   const { mutate: removeFromCartMutation } = useRemoveFromCart();
-  const { mutate: addQuantityToCartMutation } = useAddQuantityToCart();
-  const [quantity, setQuantity] = useState<number>(shoppingCartItem.quantity);
+  const { mutate: modifyQuantityMutation } = useModifyQuantityToCart();
 
   const removeFromCart = (): void => {
     removeFromCartMutation(shoppingCartItem.id, {
@@ -41,18 +39,22 @@ export function ProductCartItem({
     });
   };
 
-  useEffect(() => {
-    if (shoppingCartItem.quantity < quantity) {
-      addOneElement();
-    }
-  }, [quantity]);
-
   const onIncrementTapped = () => {
-    setQuantity(quantity + 1);
+    const newQuantity = shoppingCartItem.quantity + 1;
+    modifyElementQuantity(newQuantity);
   };
 
-  const addOneElement = (): void => {
-    addQuantityToCartMutation(
+  const onDecrementTapped = () => {
+    const newQuantity = shoppingCartItem.quantity - 1;
+    if (newQuantity === 0) {
+      removeFromCart();
+    } else {
+      modifyElementQuantity(newQuantity);
+    }
+  };
+
+  const modifyElementQuantity = (quantity: number): void => {
+    modifyQuantityMutation(
       { lineItemId: shoppingCartItem.id, newQuantity: quantity },
       {
         onSuccess: () => {
@@ -108,10 +110,13 @@ export function ProductCartItem({
                 alignItems: 'center',
               }}
             >
-              <TouchableOpacity onPress={() => removeFromCart()}>
+              <TouchableOpacity onPress={() => onDecrementTapped()}>
                 <Ionicons name={'trash'} size={25} color={black} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 18 }}> {quantity} </Text>
+              <Text style={{ fontSize: 18 }}>
+                {' '}
+                {shoppingCartItem.quantity}{' '}
+              </Text>
               <TouchableOpacity onPress={() => onIncrementTapped()}>
                 <Ionicons name={'add'} size={25} color={black} />
               </TouchableOpacity>

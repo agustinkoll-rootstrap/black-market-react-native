@@ -60,7 +60,7 @@ async function addToCart(productId: number): Promise<ShoppingCartItem> {
       throw new Error(`HTTP error! Status: ${result}`);
     }
 
-    queryClient.invalidateQueries({ queryKey: ['getShoppingList'] }); // Refresh cart
+    queryClient.invalidateQueries({ queryKey: ['getShoppingList'] });
 
     return result.data;
   } catch (e) {
@@ -152,13 +152,7 @@ export const useShoppingCart = createQuery<ShoppingCart>({
   fetcher: getShoppingList,
 });
 
-/*export const useAddQuantityToCart = createMutation<LineItem, number, number>({
-  mutationFn: ({ lineItemId, newQuantity }: { lineItemId: number; newQuantity: number }) => 
-    addQuantityToCart(lineItemId, newQuantity),
-});
-*/
-
-export const useAddQuantityToCart = () =>
+export const useModifyQuantityToCart = () =>
   useMutation({
     mutationFn: ({
       lineItemId,
@@ -169,6 +163,6 @@ export const useAddQuantityToCart = () =>
     }) => addQuantityToCart(lineItemId, newQuantity),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['getShoppingList'] }); // Refresh cart
+      queryClient.invalidateQueries({ queryKey: ['getShoppingList'] });
     },
   });
