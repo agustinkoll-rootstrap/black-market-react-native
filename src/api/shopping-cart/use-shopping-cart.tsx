@@ -68,7 +68,7 @@ async function addToCart(productId: number): Promise<ShoppingCartItem> {
   }
 }
 
-async function addQuantityToCart(
+async function modifyElementQuantityInCart(
   lineItemId: number,
   newQuantity: number,
 ): Promise<LineItem> {
@@ -160,7 +160,7 @@ export const useModifyQuantityToCart = () =>
     }: {
       lineItemId: number;
       newQuantity: number;
-    }) => addQuantityToCart(lineItemId, newQuantity),
+    }) => modifyElementQuantityInCart(lineItemId, newQuantity),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getShoppingList'] });
