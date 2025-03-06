@@ -66,6 +66,9 @@
     "subtitle": "The right way to build your mobile app",
     "title": "React Native Template"
   },
+  "products": {
+    "remove": "Remove"
+  },
   "settings": {
     "about": "About",
     "account": {

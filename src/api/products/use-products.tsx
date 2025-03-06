@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query"; // Ensure correct import
-import { HttpStatusCode } from "axios";
+import { useMutation } from '@tanstack/react-query'; // Ensure correct import
+import { HttpStatusCode } from 'axios';
 import { createQuery } from 'react-query-kit';
 
 import { client } from '../common';
@@ -23,8 +23,8 @@ export type Category = {
   description: string;
 };
 
-async function addToFavorites(productId: number) : Promise<Product> {
-  try{
+async function addToFavorites(productId: number): Promise<Product> {
+  try {
     const result = await client({
       url: `/v1/products/${productId}/favorite`,
       method: 'POST',
@@ -36,12 +36,13 @@ async function addToFavorites(productId: number) : Promise<Product> {
       throw new Error(`HTTP error! Status: ${result}`);
     }
     return result.data;
-  } catch(e){
+  } catch (e) {
     throw new Error(`HTTP error! Status: ${e}`);
   }
 }
 
-export const useAddFav = () => useMutation<Product, Error, number>({
+export const useAddFav = () =>
+  useMutation<Product, Error, number>({
     mutationFn: addToFavorites,
   });
 

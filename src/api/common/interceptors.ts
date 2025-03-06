@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { signIn, useAuth } from '@/core';
@@ -58,4 +59,37 @@ export default function interceptors() {
     },
     (error: AxiosError) => Promise.reject(error),
   );
+
+  /*client.interceptors.request.use((request) => {
+    console.log(
+      `[HTTP REQUEST] ${request.rmethod?.toUpperCase()} ${request.url}`,
+      request.data ?? request.params
+    );
+    return request;
+  });
+*/
+ /* client.interceptors.response.use(
+    (response) => {
+      console.log("[HTTP RESPONSE]");
+      console.log(`✅ Status: ${response.status} URL: ${response.config.url}`);
+      console.log("✅ Headers:", response.headers);
+      console.log("✅ Data:", response.data);
+      return response;
+    },
+    (error) => {
+      if (error.response) {
+        console.error("[HTTP ERROR RESPONSE]");
+        console.error(`❌ Status: ${error.response.status} URL: ${error.config?.url}`);
+        console.error("❌ Headers:", error.response.headers);
+        console.error("❌ Data:", error.response.data);
+      } else if (error.request) {
+        console.error("[HTTP ERROR REQUEST]");
+        console.error("❌ No response received:", error.request);
+      } else {
+        console.error("[HTTP ERROR MESSAGE]");
+        console.error("❌", error.message);
+      }
+      return Promise.reject(error);
+    }
+  );*/
 }
