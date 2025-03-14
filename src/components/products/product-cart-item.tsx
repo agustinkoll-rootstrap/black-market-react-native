@@ -1,13 +1,6 @@
 /* eslint-disable max-lines-per-function */
 
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
@@ -71,16 +64,19 @@ export function ProductCartItem({
   };
 
   return (
-    <View style={styles.itemsSeparator}>
-      <View key={shoppingCartItem.product.id} style={styles.cardContainer}>
+    <View>
+      <View
+        key={shoppingCartItem.product.id}
+        className="flex h-[160px]  w-full flex-row bg-white p-4"
+      >
         <Image
           source={{ uri: shoppingCartItem.product.pictures[0] }}
-          style={styles.image}
+          className="h-full w-[120px] object-contain"
         />
-        <View style={styles.descriptionContainer}>
-          <View style={styles.descriptionColumn}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.text, { paddingBottom: 8 }]}>
+        <View className="flex-1 flex-row justify-between p-4">
+          <View className="flex-1 flex-col">
+            <View className="flex-1">
+              <Text className="pb-2 text-[16px] font-bold text-black">
                 {shoppingCartItem.product.title}
               </Text>
               <ProductState
@@ -90,33 +86,24 @@ export function ProductCartItem({
 
             <TouchableOpacity onPress={() => removeFromCart()}>
               <Text
-                className="font-bold"
-                style={{ color: blueLink, fontSize: 16 }}
+                className="text-[16px] font-bold"
+                style={{ color: blueLink }}
               >
                 {translate('products.remove')}
               </Text>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.interactionsColumn}>
-            <Text style={[styles.text, { paddingBottom: 16 }]}>
+          <View className="flex-col content-between items-end justify-between">
+            <Text className="p-4 text-[16px] font-bold text-black">
               {shoppingCartItem.product.unit_price}
             </Text>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+            <View className="flex-row items-center justify-center">
               <TouchableOpacity onPress={() => onDecrementTapped()}>
                 <Ionicons name={'trash'} size={25} color={black} />
               </TouchableOpacity>
-              <Text style={{ fontSize: 18 }}>
-                {' '}
-                {shoppingCartItem.quantity}{' '}
-              </Text>
+              <Text className="text-[18px]"> {shoppingCartItem.quantity} </Text>
               <TouchableOpacity onPress={() => onIncrementTapped()}>
                 <Ionicons name={'add'} size={25} color={black} />
               </TouchableOpacity>
@@ -124,54 +111,7 @@ export function ProductCartItem({
           </View>
         </View>
       </View>
-      <View style={{ height: 1, width: '100%', backgroundColor: black }} />
+      <View className="h-px w-full bg-black" />
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
-  cardContainer: {
-    display: 'flex',
-    width: '100%',
-    height: 160,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    padding: 16,
-  },
-  itemsSeparator: {
-    flexDirection: 'column',
-  },
-  descriptionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 1,
-    padding: 8,
-  },
-  descriptionColumn: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  interactionsColumn: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    alignContent: 'space-between',
-  },
-  text: {
-    color: black,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  priceText: {
-    color: black,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  addCartButton: {},
-  addCartButtonLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  image: { width: 100, height: '100%', resizeMode: 'contain' },
-});

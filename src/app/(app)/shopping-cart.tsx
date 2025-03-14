@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { useShoppingCart } from '@/api/shopping-cart/use-shopping-cart';
 import { ProductCartItem } from '@/components/products/product-cart-item';
-import { background } from '@/ui/colors';
 
 export default function ShoppingCart() {
   const { data: productsData } = useShoppingCart();
@@ -12,8 +11,8 @@ export default function ShoppingCart() {
   useEffect(() => {}, [productsData]);
 
   return (
-    <View style={styles.backgroundContainer}>
-      <View className="column flex-1" style={styles.listContainer}>
+    <View className="flex-1 bg-background p-4">
+      <View className="column flex-1 rounded-[8px] border">
         {productsData?.lineItems?.length === 0 ? (
           <Text>No items in the cart</Text>
         ) : (
@@ -33,17 +32,3 @@ export default function ShoppingCart() {
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    borderRadius: 8,
-    borderWidth: 1,
-  },
-  backgroundContainer: {
-    backgroundColor: background,
-    flex: 1,
-    padding: 16,
-  },
-});
