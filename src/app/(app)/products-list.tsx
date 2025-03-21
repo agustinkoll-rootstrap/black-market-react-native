@@ -1,19 +1,28 @@
-import React from 'react';
-import { SafeAreaView,ScrollView, Text,View } from 'react-native';
+import { useEffect } from 'react';
+import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
-import { FocusAwareStatusBar } from '@/ui';
+import { useProducts } from '@/api/products/use-products';
+import { ProductItemHorizontal } from '@/components/products/product-item-horizontal';
 
 export default function ProductsList() {
+  const { data: productsData } = useProducts();
+
+  useEffect(() => {}, [productsData]);
+
   return (
-    <>
-      <FocusAwareStatusBar />
-      <ScrollView className="px-4">
-        <SafeAreaView className="flex-1">
-          <View>
-          <Text>Products list</Text>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-    </>
+    <View className="flex-1 bg-background p-4">
+      <View className="column flex-1 rounded-[8px] border">
+        <FlatList
+          className="rounded-[8px] border"
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={false}
+          data={productsData}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <ProductItemHorizontal product={item} />}
+        ></FlatList>
+      </View>
+    </View>
   );
 }
