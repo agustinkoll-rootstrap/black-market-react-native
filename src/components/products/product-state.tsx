@@ -1,38 +1,27 @@
-import { StyleSheet, Text,View } from "react-native";
+import { Text, View } from 'react-native';
 
 const STATE_NEW = 'totaly_new';
+const STATE_USED = 'used';
+
+type StateType = 'totaly_new' | 'used' | 'restored';
+
+const STATE_MAP: Record<StateType, { label: string; bgClass: string }> = {
+  [STATE_NEW]: { label: 'New', bgClass: 'bg-blue-700' },
+  [STATE_USED]: { label: 'Used', bgClass: 'bg-green-700' },
+  restored: { label: 'Restored', bgClass: 'bg-gray-700' },
+};
 
 export function ProductState({ state }: { state: string }) {
+  const { label, bgClass } =
+    STATE_MAP[state as StateType] || STATE_MAP.restored;
+
   return (
-   state === STATE_NEW? 
-   <View style={styles.stateContainerBlue}>
-      <Text style={styles.text}>New</Text>
-    </View> : <View style={styles.stateContainerGreen}>
-        <Text style={styles.text}>Restored</Text>
+    <View
+      className={`flex items-center justify-center rounded-[4px] ${bgClass}`}
+    >
+      <Text className="self-center px-3 py-1 text-[14px] font-bold color-white">
+        {label}
+      </Text>
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
-  text: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-  },
-  stateContainerBlue: {
-    display: 'flex',
-    backgroundColor: 'blue',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stateContainerGreen: { 
-    display: 'flex',
-    backgroundColor: 'green',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
