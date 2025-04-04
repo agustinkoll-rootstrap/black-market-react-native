@@ -14,6 +14,7 @@ import { background, blueLink } from '@/ui/colors';
 
 import PaymentMethods from '../dashboard/payment-methods';
 import SaleItem from '../dashboard/sale-item';
+import ShippingItem from '../dashboard/shipping-method';
 
 export default function Dashboard() {
   return (
@@ -46,6 +47,7 @@ export default function Dashboard() {
               }}
             ></SaleItem>
             <PaymentMethods />
+            <ShippingItem />
           </View>
         </SafeAreaView>
       </ScrollView>
