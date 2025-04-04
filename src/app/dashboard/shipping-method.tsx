@@ -15,7 +15,7 @@ export default function ShippingItem() {
           We upgraded our shipments many levels up.
         </Text>
         <Text className="mt-4 text-[16px] color-white">
-          Powered by Powered by
+          Powered by
           <Text className="text-[16px] text-green-500"> FedEx</Text>
         </Text>
       </View>
