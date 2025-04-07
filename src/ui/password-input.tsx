@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { type Control, type FieldValues,type Path,useController } from 'react-hook-form';
-import { StyleSheet,View } from 'react-native';
+import {
+  type Control,
+  type FieldValues,
+  type Path,
+  useController,
+} from 'react-hook-form';
+import { StyleSheet, View } from 'react-native';
 import { Eye, EyeOff } from 'react-native-feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -23,18 +28,18 @@ export function PasswordInput<T extends FieldValues>({
   rules,
   testID,
 }: PasswordInputProps<T>) {
- 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { field, fieldState } = useController({ control, name, rules });
-  
+
   return (
     <View
       style={{
         display: 'flex',
-       width: '100%',
-      }}>
-      <Text className= 'text-grey-100 text-lg dark:text-neutral-100'>
-          {label}
+        width: '100%',
+      }}
+    >
+      <Text className="text-grey-100 text-lg dark:text-neutral-100">
+        {label}
       </Text>
 
       <View style={passwordStyles.container}>
@@ -42,26 +47,35 @@ export function PasswordInput<T extends FieldValues>({
           onChangeText={field.onChange}
           value={(field.value as string) || ''}
           className="pl-2"
-            style={{
-              height: 40,
-              width: 320,
-              flex: 1,
-              alignSelf: 'center',
-            }}
-            
-            numberOfLines={1}
-            multiline={false}
-            testID={testID}
-            placeholder="*****"
-            secureTextEntry={!isPasswordVisible}/>
-    
+          style={{
+            height: 40,
+            width: 320,
+            flex: 1,
+            alignSelf: 'center',
+          }}
+          numberOfLines={1}
+          multiline={false}
+          testID={testID}
+          placeholder="*****"
+          secureTextEntry={!isPasswordVisible}
+        />
+
         <TouchableOpacity
-              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-              style={ {height: 40, width: 40,  justifyContent: 'center',  alignItems:'center', alignSelf: 'flex-end'} }>
-              {isPasswordVisible ? <EyeOff color={black} /> : <Eye color={black} />}
-            </TouchableOpacity>
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          style={{
+            height: 40,
+            width: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'flex-end',
+          }}
+        >
+          {isPasswordVisible ? <EyeOff color={black} /> : <Eye color={black} />}
+        </TouchableOpacity>
       </View>
-      <Text className="text-sm text-danger-400 dark:text-danger-600">{fieldState.error?.message}</Text>
+      <Text className="text-sm text-danger-400 dark:text-danger-600">
+        {fieldState.error?.message}
+      </Text>
     </View>
   );
 }
