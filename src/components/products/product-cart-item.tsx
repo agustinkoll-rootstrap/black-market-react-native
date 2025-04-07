@@ -111,7 +111,6 @@ export function ProductCartItem({
           </View>
         </View>
       </View>
-      <View className="h-px w-full bg-black" />
     </View>
   );
 }

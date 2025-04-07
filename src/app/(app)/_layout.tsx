@@ -90,13 +90,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="fav"
+        name="favorites-page"
         options={{
           title: 'My Favourites',
           tabBarIcon: ({ color, focused }) => (
             <TabIcon IconComponent={FavIcon} color={color} focused={focused} />
           ),
-          tabBarTestID: 'favourites-tab',
+          tabBarTestID: 'favorites-tab',
         }}
       />
       <Tabs.Screen
