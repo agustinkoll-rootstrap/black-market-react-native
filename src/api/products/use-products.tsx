@@ -1,4 +1,5 @@
 // Ensure correct import
+import { useQuery } from '@tanstack/react-query';
 import { HttpStatusCode } from 'axios';
 import { createQuery } from 'react-query-kit';
 
@@ -51,3 +52,23 @@ export const useProducts = createQuery<Product[]>({
   queryKey: ['getProducts'],
   fetcher: getProducts,
 });
+
+async function getProductById(productId: number): Promise<Product> {
+  const { data, status } = await client({
+    url: `/v1/products/${productId}`,
+    method: 'GET',
+  });
+
+  if (status !== HttpStatusCode.Ok) {
+    throw new Error(`HTTP error! Status: ${status}`);
+  }
+
+  return data;
+}
+
+export const useGetProductById = (productId: number) =>
+  useQuery<Product, Error>({
+    queryKey: ['productId', productId],
+    queryFn: () => getProductById(productId),
+    enabled: !!productId, // para evitar que se ejecute con `undefined`
+  });

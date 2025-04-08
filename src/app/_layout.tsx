@@ -57,6 +57,14 @@ export default function RootLayout() {
             headerBackTitleVisible: false,
           }}
         />
+        <Stack.Screen
+          name="product-detail"
+          options={{
+            headerShown: true,
+            headerBackButtonMenuEnabled: false,
+            headerBackTitleVisible: false,
+          }}
+        />
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen
           name="sign-up"
