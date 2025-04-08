@@ -1,7 +1,7 @@
 import { HttpStatusCode } from 'axios';
 import { createMutation } from 'react-query-kit';
 
-import { client } from '../common';
+import { client, queryClient } from '../common';
 
 type CreditCard = {
   card_number: string;
@@ -50,4 +50,7 @@ async function makeCheckout(order: OrderPayload): Promise<boolean> {
 
 export const useCheckout = createMutation<boolean, OrderPayload>({
   mutationFn: (variables) => makeCheckout(variables),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['getShoppingList'] });
+  },
 });

@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Alert, View } from 'react-native';
 
@@ -43,6 +44,7 @@ function createOrderPayload(data: FormType) {
 export default function Checkout() {
   const { mutate: checkoutMutation } = useCheckout();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSubmit: AddressFormProps['onSubmit'] = (data) => {
     setLoading(true);
@@ -50,11 +52,21 @@ export default function Checkout() {
     checkoutMutation(orderPayload, {
       onSuccess: () => {
         setLoading(false);
-        Alert.alert('Success', 'Order placed successfully!');
+        Alert.alert('Success', 'Order placed successfully!', [
+          {
+            text: 'OK',
+            onPress: () => router.dismiss(),
+          },
+        ]);
       },
       onError: (error) => {
         setLoading(false);
-        Alert.alert('Error', error.message || 'Failed to place order.');
+        Alert.alert('Error', error.message || 'Failed to place order.', [
+          {
+            text: 'OK',
+            onPress: () => router.dismiss(),
+          },
+        ]);
       },
     });
   };
