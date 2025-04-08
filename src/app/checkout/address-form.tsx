@@ -88,6 +88,7 @@ export type FormType = z.infer<typeof schema>;
 
 export type AddressFormProps = {
   onSubmit: (data: FormType) => void;
+  isLoading?: boolean;
 };
 
 export default function AddressForm(props: AddressFormProps) {
@@ -189,7 +190,8 @@ export default function AddressForm(props: AddressFormProps) {
             className="mt-4"
             label="Buy"
             onPress={handleSubmit(props.onSubmit)}
-            disabled={isFormIncomplete}
+            disabled={isFormIncomplete || props.isLoading}
+            loading={props.isLoading}
           ></Button>
         </View>
       </ScrollView>

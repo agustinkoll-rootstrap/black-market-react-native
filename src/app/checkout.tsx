@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Alert, View } from 'react-native';
 
 import { useCheckout } from '@/api/checkout//use-checkout';
@@ -41,14 +42,18 @@ function createOrderPayload(data: FormType) {
 
 export default function Checkout() {
   const { mutate: checkoutMutation } = useCheckout();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit: AddressFormProps['onSubmit'] = (data) => {
+    setLoading(true);
     const orderPayload = createOrderPayload(data);
     checkoutMutation(orderPayload, {
       onSuccess: () => {
+        setLoading(false);
         Alert.alert('Success', 'Order placed successfully!');
       },
       onError: (error) => {
+        setLoading(false);
         Alert.alert('Error', error.message || 'Failed to place order.');
       },
     });
@@ -56,7 +61,7 @@ export default function Checkout() {
 
   return (
     <View className="flex-1 flex-col bg-background p-4">
-      <AddressForm onSubmit={onSubmit}></AddressForm>
+      <AddressForm onSubmit={onSubmit} isLoading={loading}></AddressForm>
     </View>
   );
 }
