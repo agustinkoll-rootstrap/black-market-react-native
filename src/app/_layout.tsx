@@ -3,9 +3,9 @@ import '../../global.css';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
-import { SplashScreen, Stack, } from 'expo-router';
+import { SplashScreen, Stack } from 'expo-router';
 import React from 'react';
-import {  StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
@@ -32,16 +32,31 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   return (
     <Providers>
-      
-      <Stack screenOptions={{
+      <Stack
+        screenOptions={{
           headerStyle: { backgroundColor: darkViolet },
-          headerTintColor: white, 
+          headerTintColor: white,
           headerTitleAlign: 'center',
           headerTitle: () => <HeaderLogo />,
-        }}>
-        <Stack.Screen name="(app)" options={{ headerShown: true, headerBackTitleVisible: false }}/>
-        <Stack.Screen name="onboarding" options={{ headerShown: false, }} />
-        <Stack.Screen name="forgot-password" options={{ headerBackTitleVisible: false }}/>
+        }}
+      >
+        <Stack.Screen
+          name="(app)"
+          options={{ headerShown: true, headerBackTitleVisible: false }}
+        />
+        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="forgot-password"
+          options={{ headerBackTitleVisible: false }}
+        />
+        <Stack.Screen
+          name="checkout"
+          options={{
+            headerShown: true,
+            headerBackButtonMenuEnabled: false,
+            headerBackTitleVisible: false,
+          }}
+        />
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen
           name="sign-up"
