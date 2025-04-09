@@ -1,4 +1,5 @@
 /* eslint-disable max-lines-per-function */
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -21,6 +22,8 @@ export function ProductItemHorizontal({ product }: { product: Product }) {
   const { mutate: addToFavorites } = useAddFav();
   const { mutate: addToCartMutation } = useAddToCart<ShoppingCartItem>();
   const { mutate: removeFromCartMutation } = useRemoveFromCart();
+  const productId = product.id;
+  const router = useRouter();
 
   const toggleFavorite = () => {
     setIsFavorite((prev) => !prev);
@@ -61,46 +64,52 @@ export function ProductItemHorizontal({ product }: { product: Product }) {
   };
 
   return (
-    <View className="flex-col">
-      <View
-        className="flex h-[160px] w-full flex-row bg-white"
-        key={product.id}
-      >
-        <Image
-          source={{ uri: product.pictures[0] }}
-          className="h-full w-[100px] object-contain"
-          style={{ resizeMode: 'contain' }}
-        />
-        <View className="flex-1 flex-row content-between p-4">
-          <View className="flex-1 flex-col">
-            <View className="flex-1">
+    <TouchableOpacity
+      onPress={() => {
+        router.push(`/detail/product-detail/${productId}`);
+      }}
+    >
+      <View className="flex-col">
+        <View
+          className="flex h-[160px] w-full flex-row bg-white"
+          key={product.id}
+        >
+          <Image
+            source={{ uri: product.pictures[0] }}
+            className="h-full w-[100px] object-contain"
+            style={{ resizeMode: 'contain' }}
+          />
+          <View className="flex-1 flex-row content-between p-4">
+            <View className="flex-1 flex-col">
+              <View className="flex-1">
+                <Text className="pb-4 text-[16px] font-bold color-black">
+                  {product.title}
+                </Text>
+                <ProductState state={product.state.toString()}></ProductState>
+              </View>
               <Text className="pb-4 text-[16px] font-bold color-black">
-                {product.title}
+                {product.unit_price}
               </Text>
-              <ProductState state={product.state.toString()}></ProductState>
             </View>
-            <Text className="pb-4 text-[16px] font-bold color-black">
-              {product.unit_price}
-            </Text>
-          </View>
 
-          <View className="flex-1 flex-col content-between items-end justify-between">
-            <TouchableOpacity onPress={toggleFavorite}>
-              <Ionicons
-                name={isFavorite ? 'heart' : 'heart-outline'}
-                size={40}
-                color={isFavorite ? 'red' : 'gray'}
+            <View className="flex-1 flex-col content-between items-end justify-between">
+              <TouchableOpacity onPress={toggleFavorite}>
+                <Ionicons
+                  name={isFavorite ? 'heart' : 'heart-outline'}
+                  size={40}
+                  color={isFavorite ? 'red' : 'gray'}
+                />
+              </TouchableOpacity>
+              <Text>Stock: {product.stock}</Text>
+              <Button
+                label={isInCart === true ? 'Remove' : 'Add to cart'}
+                onPress={toggleCart}
               />
-            </TouchableOpacity>
-            <Text>Stock: {product.stock}</Text>
-            <Button
-              label={isInCart === true ? 'Remove' : 'Add to cart'}
-              onPress={toggleCart}
-            />
+            </View>
           </View>
         </View>
+        <View className="h-px w-full bg-black" />
       </View>
-      <View className="h-px w-full bg-black" />
-    </View>
+    </TouchableOpacity>
   );
 }
