@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { type Product, useAddFav } from '@/api/products/use-products';
+import { useAddFav } from '@/api/favs/use-fav';
+import { type Product } from '@/api/products/use-products';
 import {
   type ShoppingCartItem,
   useAddToCart,
